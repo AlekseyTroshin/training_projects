@@ -2,51 +2,33 @@
 
 namespace app\model;
 
-use core\Db;
-use PDO;
-
+use app\dto\Message;
+use database\Db;
 
 class MessageModel
 {
-    private PDO $pdo;
-    private string $tableBD;
 
-    public function __construct()
+    public function __construct(
+        private Db $db
+    )
+    {}
+
+    public function addMessage(Message $message)
     {
-        $db = Db::getInstance();
-        $this->pdo = $db->getPDO();
-        $this->tableBD = TABLE;
-    }
-
-    public function addMessage(array $message)
-    {
-        $query = "INSERT INTO $this->tableBD (name, content) VALUES (:name, :content)";
-        $stmt = $this->pdo->prepare($query);
-
-        $stmt->bindValue(":name", $message["name"]);
-        $stmt->bindValue(":content", $message["content"]);
-
-        $stmt->execute();
+        $this->db->query(
+          'INSERT INTO ' . TABLE_DB . ' (name, content) VALUE (:name, :content)',
+            [':name' => $message->getName(), ':content' => $message->getContent()],
+            Message::class
+        );
     }
 
     public function getMessages(): array
     {
-        $query = "SELECT name, content FROM $this->tableBD";
-        return $this->pdo->query($query)->fetchAll(PDO::FETCH_ASSOC);
+        return $this->db->query(
+            'SELECT name, content FROM ' . TABLE_DB,
+            [],
+            Message::class
+        );
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
