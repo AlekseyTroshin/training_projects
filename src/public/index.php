@@ -6,7 +6,6 @@ use public\Container;
 
 
 require_once dirname(__DIR__) . "/config/init.php";
-require_once dirname(__DIR__) . "/helper/helper.php";
 
 $app = (new Container())->get(MessageApp::class);
 $controller = $app->getController();
