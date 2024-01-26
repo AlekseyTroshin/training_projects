@@ -3,6 +3,7 @@
 namespace app\model;
 
 use app\dto\Message;
+use app\dto\MessageDTO;
 use database\Db;
 
 class MessageModel

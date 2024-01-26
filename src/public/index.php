@@ -1,6 +1,6 @@
 <?php
 
-use app\dto\Message;
+use app\dto\MessageDTO;
 use public\MessageApp;
 use public\Container;
 
@@ -15,10 +15,7 @@ $content = $_POST['content'] ?? '';
 
 
 if (emptyValue($name) && emptyValue($content)) {
-    $message = new Message();
-    $message->setName($name);
-    $message->setContent($content);
-    $controller->addMessage($message);
+    $controller->addMessage(new MessageDTO($name, $content));
 
     header('Location: /public/');
     exit;

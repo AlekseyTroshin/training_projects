@@ -9,7 +9,7 @@ class MessageController
 {
 
     public function __construct(
-        private MessageModel $messageModel
+        private MessageModel $messageModel,
     )
     {}
 
